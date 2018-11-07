@@ -66,6 +66,7 @@ public class AvroRecordReader extends RecordReader<LongWritable, GenericData.Rec
     FileStatus status = fs.getFileStatus(filePath);
     inputFileLength = status.getLen();
 
+    System.out.println("Google BigQuery Avro File reader ; reading Path " + filePath.toUri().toString());
     final FSDataInputStream stream = fs.open(filePath);
     dataFileReader = DataFileReader.openReader(
         new SeekableInput() {
@@ -96,6 +97,7 @@ public class AvroRecordReader extends RecordReader<LongWritable, GenericData.Rec
     // Sync to the first sync point after the start of the split:
     dataFileReader.sync(fileSplit.getStart());
     schema = dataFileReader.getSchema();
+    System.out.println(" SCHEMA READ FROM FILE IS  " + schema.toString(true));
     currentRecord = new GenericData.Record(schema);
   }
 

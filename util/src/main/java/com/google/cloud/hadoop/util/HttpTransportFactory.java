@@ -219,7 +219,7 @@ public class HttpTransportFactory {
    * @throws GeneralSecurityException If there is a security issue with the keystore.
    */
   public static NetHttpTransport createNetHttpTransport(
-      @Nullable URI proxyUri, @Nullable PasswordAuthentication proxyAuth)
+      @Nullable final URI proxyUri, @Nullable final PasswordAuthentication proxyAuth)
       throws IOException, GeneralSecurityException {
     checkArgument(
         proxyUri != null || proxyAuth == null,

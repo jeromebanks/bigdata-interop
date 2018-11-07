@@ -32,7 +32,7 @@
   </description>
 
   <artifactId>bigquery-connector</artifactId>
-  <version>${hadoop.identifier}-0.13.9-SNAPSHOT</version>
+  <version>${hadoop.identifier}-1.9.9-SNAPSHOT</version>
 
   <profiles>
     <profile>
@@ -281,6 +281,7 @@
               </artifactSet>
               <minimizeJar>true</minimizeJar>
               <relocations>
+		<!--
                 <relocation>
                   <pattern>com</pattern>
                   <shadedPattern>com.google.cloud.hadoop.repackaged.bigquery.com</shadedPattern>
@@ -303,6 +304,7 @@
                     <include>org.apache.http.**</include>
                   </includes>
                 </relocation>
+		-->
               </relocations>
               <shadedArtifactAttached>true</shadedArtifactAttached>
             </configuration>
