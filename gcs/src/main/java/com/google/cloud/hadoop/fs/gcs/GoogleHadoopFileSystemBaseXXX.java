@@ -117,7 +117,7 @@ import org.apache.hadoop.util.Progressable;
  * tests and HDFS tests against the same test data and use that as a guide to decide whether to
  * throw or to return false.
  */
-public abstract class GoogleHadoopFileSystemBase extends GoogleHadoopFileSystemBaseSpecific
+public abstract class GoogleHadoopFileSystemBaseXXX extends GoogleHadoopFileSystemBaseSpecific
     implements FileSystemDescriptor {
 
   private static final GoogleLogger logger = GoogleLogger.forEnclosingClass();
@@ -189,7 +189,7 @@ public abstract class GoogleHadoopFileSystemBase extends GoogleHadoopFileSystemB
   static {
     VERSION =
         PropertyUtil.getPropertyOrDefault(
-            GoogleHadoopFileSystemBase.class, PROPERTIES_FILE, VERSION_PROPERTY, UNKNOWN_VERSION);
+            GoogleHadoopFileSystemBaseXXX.class, PROPERTIES_FILE, VERSION_PROPERTY, UNKNOWN_VERSION);
     logger.atInfo().log("GHFS version: %s", VERSION);
     GHFS_ID = String.format("GHFS/%s", VERSION);
   }
@@ -489,14 +489,14 @@ public abstract class GoogleHadoopFileSystemBase extends GoogleHadoopFileSystemB
    * Constructs an instance of GoogleHadoopFileSystemBase; the internal
    * GoogleCloudStorageFileSystem will be set up with config settings when initialize() is called.
    */
-  public GoogleHadoopFileSystemBase() {
+  public GoogleHadoopFileSystemBaseXXX() {
   }
 
   /**
    * Constructs an instance of GoogleHadoopFileSystemBase using the provided
    * GoogleCloudStorageFileSystem; initialize() will not re-initialize it.
    */
-  public GoogleHadoopFileSystemBase(GoogleCloudStorageFileSystem gcsfs) {
+  public GoogleHadoopFileSystemBaseXXX(GoogleCloudStorageFileSystem gcsfs) {
     Preconditions.checkArgument(gcsfs != null, "gcsfs must not be null");
     this.gcsfs = gcsfs;
   }
@@ -1490,9 +1490,11 @@ public abstract class GoogleHadoopFileSystemBase extends GoogleHadoopFileSystemB
   private Credential getCredential(
       AccessTokenProviderClassFromConfigFactory providerClassFactory, Configuration config)
       throws IOException, GeneralSecurityException {
+    System.out.println(" GCS FILE SYSTEM GET CREDENTIAL ");
     Credential credential =
         CredentialFromAccessTokenProviderClassFactory.credential(
             providerClassFactory, config, CredentialFactory.GCS_SCOPES);
+    System.out.println(" GCS FILE SYSTEM GET CREDENTIAL =  " + credential );
     if (credential != null) {
       return credential;
     }

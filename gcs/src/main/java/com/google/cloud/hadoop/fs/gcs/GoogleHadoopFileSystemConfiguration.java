@@ -16,12 +16,12 @@
 
 package com.google.cloud.hadoop.fs.gcs;
 
-import static com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystemBase.PATH_CODEC_USE_LEGACY_ENCODING;
+import static com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystemBaseXXX.PATH_CODEC_USE_LEGACY_ENCODING;
 import static com.google.common.base.Strings.nullToEmpty;
 
-import com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystemBase.GcsFileChecksumType;
-import com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystemBase.OutputStreamType;
-import com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystemBase.ParentTimestampUpdateIncludePredicate;
+import com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystemBaseXXX.GcsFileChecksumType;
+import com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystemBaseXXX.OutputStreamType;
+import com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystemBaseXXX.ParentTimestampUpdateIncludePredicate;
 import com.google.cloud.hadoop.gcsio.GoogleCloudStorageFileSystemOptions;
 import com.google.cloud.hadoop.gcsio.GoogleCloudStorageReadOptions;
 import com.google.cloud.hadoop.gcsio.GoogleCloudStorageReadOptions.Fadvise;

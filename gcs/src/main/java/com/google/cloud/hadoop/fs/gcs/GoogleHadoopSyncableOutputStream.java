@@ -110,7 +110,7 @@ public class GoogleHadoopSyncableOutputStream extends OutputStream implements Sy
               .build());
 
   // Instance of GoogleHadoopFileSystemBase.
-  private final GoogleHadoopFileSystemBase ghfs;
+  private final GoogleHadoopFileSystemBaseXXX ghfs;
 
   // The final destination path for this stream.
   private final URI finalGcsPath;
@@ -149,7 +149,7 @@ public class GoogleHadoopSyncableOutputStream extends OutputStream implements Sy
    * files.
    */
   public GoogleHadoopSyncableOutputStream(
-      GoogleHadoopFileSystemBase ghfs,
+      GoogleHadoopFileSystemBaseXXX ghfs,
       URI gcsPath,
       FileSystem.Statistics statistics,
       CreateFileOptions createFileOptions)
@@ -158,7 +158,7 @@ public class GoogleHadoopSyncableOutputStream extends OutputStream implements Sy
   }
 
   GoogleHadoopSyncableOutputStream(
-      GoogleHadoopFileSystemBase ghfs,
+      GoogleHadoopFileSystemBaseXXX ghfs,
       URI gcsPath,
       FileSystem.Statistics statistics,
       CreateFileOptions createFileOptions,

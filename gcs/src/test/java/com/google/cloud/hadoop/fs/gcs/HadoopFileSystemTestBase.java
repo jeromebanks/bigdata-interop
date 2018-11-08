@@ -83,8 +83,8 @@ public abstract class HadoopFileSystemTestBase extends GoogleCloudStorageFileSys
         @Override
         public void after() {
           if (ghfs != null) {
-            if (ghfs instanceof GoogleHadoopFileSystemBase) {
-              gcs = ((GoogleHadoopFileSystemBase) ghfs).getGcsFs().getGcs();
+            if (ghfs instanceof GoogleHadoopFileSystemBaseXXX) {
+              gcs = ((GoogleHadoopFileSystemBaseXXX) ghfs).getGcsFs().getGcs();
             }
             GoogleCloudStorageFileSystemIntegrationTest.storageResource.after();
             try {
@@ -412,7 +412,7 @@ public abstract class HadoopFileSystemTestBase extends GoogleCloudStorageFileSys
   @Test
   public void testGetDefaultReplication()
       throws IOException {
-    Assert.assertEquals(GoogleHadoopFileSystemBase.REPLICATION_FACTOR_DEFAULT,
+    Assert.assertEquals(GoogleHadoopFileSystemBaseXXX.REPLICATION_FACTOR_DEFAULT,
         ghfs.getDefaultReplication());
   }
 
@@ -481,7 +481,7 @@ public abstract class HadoopFileSystemTestBase extends GoogleCloudStorageFileSys
 
       // Perform some misc checks.
       // TODO(user): Make it no longer necessary to do instanceof.
-      if (ghfs instanceof GoogleHadoopFileSystemBase) {
+      if (ghfs instanceof GoogleHadoopFileSystemBaseXXX) {
         long someValidPosition = 2;
         Assert.assertEquals(false, readStream.seekToNewSource(someValidPosition));
         Assert.assertEquals(false, readStream.markSupported());

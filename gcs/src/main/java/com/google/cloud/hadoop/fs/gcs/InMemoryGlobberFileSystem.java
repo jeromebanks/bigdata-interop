@@ -17,7 +17,7 @@ package com.google.cloud.hadoop.fs.gcs;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystemBase.ListStatusFileNotFoundBehavior;
+import com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystemBaseXXX.ListStatusFileNotFoundBehavior;
 import com.google.common.collect.Maps;
 import java.io.FileNotFoundException;
 import java.io.IOException;

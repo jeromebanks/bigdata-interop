@@ -52,18 +52,18 @@ public class GoogleHadoopSyncableOutputStreamTest {
   @Mock private ExecutorService mockExecutorService;
   @Mock private Future<Void> mockFuture;
 
-  private GoogleHadoopFileSystemBase ghfs;
+  private GoogleHadoopFileSystemBaseXXX ghfs;
 
   @Before
   public void setUp() throws IOException {
     MockitoAnnotations.initMocks(this);
 
-    ghfs = (GoogleHadoopFileSystemBase) GoogleHadoopFileSystemTestHelper
+    ghfs = (GoogleHadoopFileSystemBaseXXX) GoogleHadoopFileSystemTestHelper
         .createInMemoryGoogleHadoopFileSystem();
     ghfs.getConf()
         .set(
             GoogleHadoopFileSystemConfiguration.GCS_OUTPUT_STREAM_TYPE.getKey(),
-            GoogleHadoopFileSystemBase.OutputStreamType.SYNCABLE_COMPOSITE.toString());
+            GoogleHadoopFileSystemBaseXXX.OutputStreamType.SYNCABLE_COMPOSITE.toString());
   }
 
   @After

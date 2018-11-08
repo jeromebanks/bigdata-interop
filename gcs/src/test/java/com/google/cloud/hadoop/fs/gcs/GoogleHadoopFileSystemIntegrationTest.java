@@ -19,7 +19,7 @@ import static com.google.common.truth.Truth.assertWithMessage;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.Assert.assertThrows;
 
-import com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystemBase.GcsFileChecksumType;
+import com.google.cloud.hadoop.fs.gcs.GoogleHadoopFileSystemBaseXXX.GcsFileChecksumType;
 import com.google.cloud.hadoop.gcsio.GoogleCloudStorageFileSystem;
 import com.google.cloud.hadoop.gcsio.GoogleCloudStorageFileSystemIntegrationTest;
 import com.google.cloud.hadoop.gcsio.GoogleCloudStorageFileSystemOptions;

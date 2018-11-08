@@ -34,7 +34,7 @@ class GoogleHadoopOutputStream extends OutputStream {
   private static final GoogleLogger logger = GoogleLogger.forEnclosingClass();
 
   // Instance of GoogleHadoopFileSystemBase.
-  private GoogleHadoopFileSystemBase ghfs;
+  private GoogleHadoopFileSystemBaseXXX ghfs;
 
   // All store IO access goes through this.
   private WritableByteChannel channel;
@@ -61,7 +61,7 @@ class GoogleHadoopOutputStream extends OutputStream {
    * @throws IOException if an IO error occurs.
    */
   GoogleHadoopOutputStream(
-      GoogleHadoopFileSystemBase ghfs,
+      GoogleHadoopFileSystemBaseXXX ghfs,
       URI gcsPath,
       FileSystem.Statistics statistics,
       CreateFileOptions createFileOptions)
@@ -77,7 +77,7 @@ class GoogleHadoopOutputStream extends OutputStream {
   }
 
   private static WritableByteChannel createChannel(
-      GoogleHadoopFileSystemBase ghfs, URI gcsPath, CreateFileOptions options) throws IOException {
+      GoogleHadoopFileSystemBaseXXX ghfs, URI gcsPath, CreateFileOptions options) throws IOException {
     try {
       return ghfs.getGcsFs().create(gcsPath, options);
     } catch (java.nio.file.FileAlreadyExistsException faee) {
@@ -101,8 +101,8 @@ class GoogleHadoopOutputStream extends OutputStream {
     out.write(b);
     statistics.incrementBytesWritten(1);
     long duration = System.nanoTime() - startTime;
-    ghfs.increment(GoogleHadoopFileSystemBase.Counter.WRITE1);
-    ghfs.increment(GoogleHadoopFileSystemBase.Counter.WRITE1_TIME, duration);
+    ghfs.increment(GoogleHadoopFileSystemBaseXXX.Counter.WRITE1);
+    ghfs.increment(GoogleHadoopFileSystemBaseXXX.Counter.WRITE1_TIME, duration);
   }
 
   /**
@@ -114,8 +114,8 @@ class GoogleHadoopOutputStream extends OutputStream {
     out.write(b, offset, len);
     statistics.incrementBytesWritten(len);
     long duration = System.nanoTime() - startTime;
-    ghfs.increment(GoogleHadoopFileSystemBase.Counter.WRITE);
-    ghfs.increment(GoogleHadoopFileSystemBase.Counter.WRITE_TIME, duration);
+    ghfs.increment(GoogleHadoopFileSystemBaseXXX.Counter.WRITE);
+    ghfs.increment(GoogleHadoopFileSystemBaseXXX.Counter.WRITE_TIME, duration);
   }
 
   /** Closes this output stream and releases any system resources associated with this stream. */
@@ -126,11 +126,11 @@ class GoogleHadoopOutputStream extends OutputStream {
         long startTime = System.nanoTime();
         out.close();
         long duration = System.nanoTime() - startTime;
-        ghfs.increment(GoogleHadoopFileSystemBase.Counter.WRITE_CLOSE);
-        ghfs.increment(GoogleHadoopFileSystemBase.Counter.WRITE_CLOSE_TIME, duration);
+        ghfs.increment(GoogleHadoopFileSystemBaseXXX.Counter.WRITE_CLOSE);
+        ghfs.increment(GoogleHadoopFileSystemBaseXXX.Counter.WRITE_CLOSE_TIME, duration);
         long streamDuration = System.nanoTime() - initTime;
-        ghfs.increment(GoogleHadoopFileSystemBase.Counter.OUTPUT_STREAM);
-        ghfs.increment(GoogleHadoopFileSystemBase.Counter.OUTPUT_STREAM_TIME, streamDuration);
+        ghfs.increment(GoogleHadoopFileSystemBaseXXX.Counter.OUTPUT_STREAM);
+        ghfs.increment(GoogleHadoopFileSystemBaseXXX.Counter.OUTPUT_STREAM_TIME, streamDuration);
         logger.atFine().log("close(%s)", gcsPath);
       } finally {
         out = null;

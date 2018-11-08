@@ -107,7 +107,7 @@ public abstract class GoogleHadoopFileSystemTestBase extends HadoopFileSystemTes
           if (ghfs != null) {
             // For GHFS tests, print the counter values to stdout.
             // We cannot use ghfs.logCounters() because we disable logging for tests.
-            String countersStr = ((GoogleHadoopFileSystemBase) ghfs).countersToString();
+            String countersStr = ((GoogleHadoopFileSystemBaseXXX) ghfs).countersToString();
             System.out.println(countersStr);
           }
           HadoopFileSystemTestBase.storageResource.after();
@@ -151,7 +151,7 @@ public abstract class GoogleHadoopFileSystemTestBase extends HadoopFileSystemTes
   @Test
   public void testGetGcsPath()
       throws URISyntaxException {
-    GoogleHadoopFileSystemBase myghfs = (GoogleHadoopFileSystemBase) ghfs;
+    GoogleHadoopFileSystemBaseXXX myghfs = (GoogleHadoopFileSystemBaseXXX) ghfs;
     URI gcsPath = new URI("gs://" + myghfs.getSystemBucketName() + "/dir/obj");
     URI convertedPath = myghfs.getGcsPath(new Path(gcsPath));
     assertThat(gcsPath).isEqualTo(convertedPath);
@@ -165,7 +165,7 @@ public abstract class GoogleHadoopFileSystemTestBase extends HadoopFileSystemTes
    */
   @Test
   public void testConfig() {
-    GoogleHadoopFileSystemBase myghfs = (GoogleHadoopFileSystemBase) ghfs;
+    GoogleHadoopFileSystemBaseXXX myghfs = (GoogleHadoopFileSystemBaseXXX) ghfs;
     GoogleCloudStorageOptions cloudStorageOptions =
         myghfs.getGcsFs().getOptions().getCloudStorageOptions();
 
@@ -192,7 +192,7 @@ public abstract class GoogleHadoopFileSystemTestBase extends HadoopFileSystemTes
   public void testRepairImplicitDirectory()
       throws IOException, URISyntaxException {
     String bucketName = sharedBucketName1;
-    GoogleHadoopFileSystemBase myghfs = (GoogleHadoopFileSystemBase) ghfs;
+    GoogleHadoopFileSystemBaseXXX myghfs = (GoogleHadoopFileSystemBaseXXX) ghfs;
     GoogleCloudStorageFileSystem gcsfs = myghfs.getGcsFs();
     URI seedUri = GoogleCloudStorageFileSystemIntegrationTest.getTempFilePath();
     Path parentPath = ghfsHelper.castAsHadoopPath(seedUri);
@@ -345,7 +345,7 @@ public abstract class GoogleHadoopFileSystemTestBase extends HadoopFileSystemTes
   /** Validates makeQualified() when working directory is not root. */
   @Test
   public void testMakeQualifiedNotRoot() {
-    GoogleHadoopFileSystemBase myGhfs = (GoogleHadoopFileSystemBase) ghfs;
+    GoogleHadoopFileSystemBaseXXX myGhfs = (GoogleHadoopFileSystemBaseXXX) ghfs;
     Path fsRootPath = myGhfs.getFileSystemRoot();
     URI fsRootUri = fsRootPath.toUri();
     String fsRoot = fsRootPath.toString();
@@ -412,7 +412,7 @@ public abstract class GoogleHadoopFileSystemTestBase extends HadoopFileSystemTes
    */
   @Test
   public void testMakeQualifiedRoot()  {
-    GoogleHadoopFileSystemBase myGhfs = (GoogleHadoopFileSystemBase) ghfs;
+    GoogleHadoopFileSystemBaseXXX myGhfs = (GoogleHadoopFileSystemBaseXXX) ghfs;
     myGhfs.setWorkingDirectory(myGhfs.getFileSystemRoot());
     Path fsRootPath = myGhfs.getFileSystemRoot();
     URI fsRootUri = fsRootPath.toUri();
@@ -474,7 +474,7 @@ public abstract class GoogleHadoopFileSystemTestBase extends HadoopFileSystemTes
 
   /**
    * We override certain methods in FileSystem simply to provide debug tracing. (Search for
-   * "Overridden functions for debug tracing" in GoogleHadoopFileSystemBase.java). We do not add or
+   * "Overridden functions for debug tracing" in GoogleHadoopFileSystemBaseXXX.java). We do not add or
    * update any functionality for such methods. The following tests simply exercise that path to
    * ensure coverage. Consequently, they do not really test any functionality.
    *
@@ -553,7 +553,7 @@ public abstract class GoogleHadoopFileSystemTestBase extends HadoopFileSystemTes
         GoogleHadoopFileSystemConfiguration.GCS_PARENT_TIMESTAMP_UPDATE_EXCLUDES.getKey(), "");
 
     TimestampUpdatePredicate predicate =
-        GoogleHadoopFileSystemBase.ParentTimestampUpdateIncludePredicate.create(configuration);
+        GoogleHadoopFileSystemBaseXXX.ParentTimestampUpdateIncludePredicate.create(configuration);
 
     assertWithMessage("Should be ignored")
         .that(predicate.shouldUpdateTimestamp(new URI("/foobar")))
@@ -570,7 +570,7 @@ public abstract class GoogleHadoopFileSystemTestBase extends HadoopFileSystemTes
     configuration.set(
         GoogleHadoopFileSystemConfiguration.GCS_PARENT_TIMESTAMP_UPDATE_EXCLUDES.getKey(), "/");
 
-    predicate = GoogleHadoopFileSystemBase.ParentTimestampUpdateIncludePredicate
+    predicate = GoogleHadoopFileSystemBaseXXX.ParentTimestampUpdateIncludePredicate
         .create(configuration);
 
     assertWithMessage("Should be included")
@@ -587,7 +587,7 @@ public abstract class GoogleHadoopFileSystemTestBase extends HadoopFileSystemTes
     configuration.set(
         GoogleHadoopFileSystemConfiguration.GCS_PARENT_TIMESTAMP_UPDATE_EXCLUDES.getKey(), "/");
 
-    predicate = GoogleHadoopFileSystemBase.ParentTimestampUpdateIncludePredicate
+    predicate = GoogleHadoopFileSystemBaseXXX.ParentTimestampUpdateIncludePredicate
         .create(configuration);
 
     assertWithMessage("Should be included")
@@ -619,7 +619,7 @@ public abstract class GoogleHadoopFileSystemTestBase extends HadoopFileSystemTes
         "/tmp/hadoop-yarn/staging/done");
 
     predicate =
-        GoogleHadoopFileSystemBase.ParentTimestampUpdateIncludePredicate.create(configuration);
+        GoogleHadoopFileSystemBaseXXX.ParentTimestampUpdateIncludePredicate.create(configuration);
 
     assertThat(
             configuration.get(
@@ -659,7 +659,7 @@ public abstract class GoogleHadoopFileSystemTestBase extends HadoopFileSystemTes
         "gs://foo-bucket/tmp/hadoop-yarn/staging/done");
 
     predicate =
-        GoogleHadoopFileSystemBase.ParentTimestampUpdateIncludePredicate.create(configuration);
+        GoogleHadoopFileSystemBaseXXX.ParentTimestampUpdateIncludePredicate.create(configuration);
 
     assertThat(
             configuration.get(

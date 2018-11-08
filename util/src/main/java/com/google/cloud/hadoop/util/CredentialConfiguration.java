@@ -42,6 +42,7 @@ public class CredentialConfiguration {
 
   // The following parameter is used for ServiceAccount Json KeyFiles
   private String serviceAccountJsonKeyFile = null;
+  private String serviceAccountJsonKeyText = null;
 
   // The following 3 parameters are used for client authentication
   private String clientId = null;
@@ -81,11 +82,13 @@ public class CredentialConfiguration {
 
     if (isServiceAccountEnabled()) {
       logger.atFine().log("Using service account credentials");
+      System.out.println("Using service account credentials");
 
       // By default, we want to use service accounts with the meta-data service (assuming we're
       // running in GCE).
       if (shouldUseMetadataService()) {
         logger.atFine().log("Getting service account credentials from meta data service.");
+        System.out.println("Getting service account credentials from meta data service.");
         // TODO(user): Validate the returned credential has access to the given scopes.
         return credentialFactory.getCredentialFromMetadataServiceAccount();
       }
@@ -117,6 +120,7 @@ public class CredentialConfiguration {
 
       if (!isNullOrEmpty(serviceAccountJsonKeyFile)) {
         logger.atFine().log("Using JSON keyfile %s", serviceAccountJsonKeyFile);
+        System.out.println("Using JSON keyfile " + serviceAccountJsonKeyFile);
         Preconditions.checkArgument(
             isNullOrEmpty(serviceAccountKeyFile),
             "A P12 key file may not be specified at the same time as a JSON key file.");
@@ -233,6 +237,14 @@ public class CredentialConfiguration {
 
   public void setServiceAccountJsonKeyFile(String serviceAccountJsonKeyFile) {
     this.serviceAccountJsonKeyFile = serviceAccountJsonKeyFile;
+  }
+
+  public String getServiceAccountJsonKeyText() {
+    return serviceAccountJsonKeyText;
+  }
+
+  public void setServiceAccountJsonKeyText(String serviceAccountJsonKeyFile) {
+    this.serviceAccountJsonKeyText = serviceAccountJsonKeyFile;
   }
 
   public String getClientId() {
