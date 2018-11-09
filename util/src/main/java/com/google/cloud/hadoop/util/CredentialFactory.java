@@ -49,11 +49,8 @@ import com.google.common.base.Joiner;
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.ImmutableList;
 import com.google.common.flogger.GoogleLogger;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
+
+import java.io.*;
 import java.security.GeneralSecurityException;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
@@ -284,6 +281,18 @@ public class CredentialFactory {
     try (FileInputStream fis = new FileInputStream(serviceAccountJsonKeyFile)) {
       return GoogleCredentialWithRetry.fromGoogleCredential(
           GoogleCredential.fromStream(fis, transport, JSON_FACTORY).createScoped(scopes));
+    }
+  }
+
+  public Credential getCredentialFromJsonKeyText(
+          String serviceAccountJsonKeyText, List<String> scopes, HttpTransport transport)
+          throws IOException, GeneralSecurityException {
+    /// XXX Actually don't log this
+    logger.atFine().log("getCredentialFromJsonKeyText(%s, %s)", serviceAccountJsonKeyText, scopes);
+
+    try (ByteArrayInputStream bis = new ByteArrayInputStream(serviceAccountJsonKeyText.getBytes())) {
+      return GoogleCredentialWithRetry.fromGoogleCredential(
+              GoogleCredential.fromStream(bis, transport, JSON_FACTORY).createScoped(scopes));
     }
   }
 

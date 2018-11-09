@@ -89,6 +89,7 @@ public class CredentialConfiguration {
       if (shouldUseMetadataService()) {
         logger.atFine().log("Getting service account credentials from meta data service.");
         System.out.println("Getting service account credentials from meta data service.");
+
         // TODO(user): Validate the returned credential has access to the given scopes.
         return credentialFactory.getCredentialFromMetadataServiceAccount();
       }
@@ -131,6 +132,19 @@ public class CredentialConfiguration {
             serviceAccountJsonKeyFile, scopes, getTransport());
       }
 
+      if (!isNullOrEmpty(serviceAccountJsonKeyText)) {
+        logger.atFine().log("Using JSON keyTEXT %s", serviceAccountJsonKeyText);
+        System.out.println("Using JSON keytexte " + serviceAccountJsonKeyText);
+        Preconditions.checkArgument(
+                isNullOrEmpty(serviceAccountKeyFile),
+                "A P12 key file may not be specified at the same time as a JSON TEXT file.");
+        Preconditions.checkArgument(
+                isNullOrEmpty(serviceAccountEmail),
+                "Service account email may not be specified at the same time as a JSON key file.");
+        return credentialFactory.getCredentialFromJsonKeyText(
+                serviceAccountJsonKeyText, scopes, getTransport());
+      }
+
       if (!isNullOrEmpty(serviceAccountKeyFile)) {
         // A key file is specified, use email-address and p12 based authentication.
         Preconditions.checkState(
@@ -169,8 +183,10 @@ public class CredentialConfiguration {
   }
 
   public boolean shouldUseMetadataService() {
+    System.out.println(" GCP JSON KEY FILE = " + serviceAccountJsonKeyFile + " TEXT " + (serviceAccountJsonKeyText != null ? "true": "false"));
     return isNullOrEmpty(serviceAccountKeyFile)
         && isNullOrEmpty(serviceAccountJsonKeyFile)
+        && isNullOrEmpty(serviceAccountJsonKeyText)
         && isNullOrEmpty(serviceAccountPrivateKey)
         && !shouldUseApplicationDefaultCredentials();
   }
@@ -208,6 +224,7 @@ public class CredentialConfiguration {
   }
 
   public void setServiceAccountPrivateKey(String serviceAccountPrivateKey) {
+    System.out.println(" SETTING SERVICE ACCOUNT PRIVATE KEY");
     this.serviceAccountPrivateKey = serviceAccountPrivateKey.replace("\\n", System.lineSeparator());
   }
 
@@ -243,8 +260,9 @@ public class CredentialConfiguration {
     return serviceAccountJsonKeyText;
   }
 
-  public void setServiceAccountJsonKeyText(String serviceAccountJsonKeyFile) {
-    this.serviceAccountJsonKeyText = serviceAccountJsonKeyFile;
+  public void setServiceAccountJsonKeyText(String serviceAccountJsonKeyText) {
+    System.out.println(" GCP CRED CONF SETTING JSON KEY TEXT");
+    this.serviceAccountJsonKeyText = serviceAccountJsonKeyText;
   }
 
   public String getClientId() {
@@ -317,6 +335,7 @@ public class CredentialConfiguration {
         + ("serviceAccountEmail: " + getServiceAccountEmail() + '\n')
         + ("serviceAccountKeyfile: " + getServiceAccountKeyFile() + '\n')
         + ("serviceAccountJsonKeyFile: " + getServiceAccountJsonKeyFile() + '\n')
+        + ("serviceAccountJsonKeyText: " + (getServiceAccountJsonKeyText()!= null) + '\n')
         + ("clientId: " + getClientId() + '\n')
         + ("clientSecret: "
             + (isNullOrEmpty(getClientSecret()) ? "Not provided" : "Provided, but not displayed")

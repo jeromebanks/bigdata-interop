@@ -319,6 +319,7 @@ public class EntriesCredentialConfiguration extends CredentialConfiguration {
       }
 
       String serviceAccountJsonKeyText = entries.get(prefix + JSON_KEYTEXT_SUFFIX);
+      System.out.println( (prefix + JSON_KEYTEXT_SUFFIX) +  " " + (serviceAccountJsonKeyText != null));
       if (serviceAccountJsonKeyText != null) {
         setServiceAccountJsonKeyText(serviceAccountJsonKeyText);
       }
